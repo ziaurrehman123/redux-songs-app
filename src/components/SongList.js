@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {selectSong} from '../actions'
 import { connect } from 'react-redux'
  class SongList extends Component {
     renderList(){
@@ -7,7 +8,9 @@ import { connect } from 'react-redux'
             return  (
                 <div className="item" key={song.title}>
                     <div className="right floated content">
-                        <button className="ui button primary">Select</button>
+                        <button className="ui button primary"
+                        onClick={()=>this.props.selectSong(song)}
+                        >Select</button>
                     </div>
                     <div className="content">{song.title}</div>
                 </div>
@@ -17,13 +20,14 @@ import { connect } from 'react-redux'
 
 
     render() {
+        console.log(this.props)
 
        return<div className="ui divided list">{this.renderList()}</div>
     }
 }
 
 const mapStateToProps = (state)=>{
-    console.log(state)
+    
     return {state:state.songs}
 }
-export default connect(mapStateToProps)(SongList);
+export default connect(mapStateToProps,{selectSong})(SongList);
